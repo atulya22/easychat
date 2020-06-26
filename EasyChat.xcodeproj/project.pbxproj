@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		ACA2896824A56D5E007211F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896724A56D5E007211F6 /* AppDelegate.swift */; };
 		ACA2896A24A56D5E007211F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896924A56D5E007211F6 /* SceneDelegate.swift */; };
-		ACA2896C24A56D5E007211F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896B24A56D5E007211F6 /* ViewController.swift */; };
+		ACA2896C24A56D5E007211F6 /* DiscussionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896B24A56D5E007211F6 /* DiscussionsViewController.swift */; };
 		ACA2896F24A56D5E007211F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACA2896D24A56D5E007211F6 /* Main.storyboard */; };
 		ACA2897124A56D5F007211F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACA2897024A56D5F007211F6 /* Assets.xcassets */; };
 		ACA2897424A56D5F007211F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACA2897224A56D5F007211F6 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		ACA2896424A56D5E007211F6 /* EasyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACA2896724A56D5E007211F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACA2896924A56D5E007211F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ACA2896B24A56D5E007211F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ACA2896B24A56D5E007211F6 /* DiscussionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionsViewController.swift; sourceTree = "<group>"; };
 		ACA2896E24A56D5E007211F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACA2897024A56D5F007211F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACA2897324A56D5F007211F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		AC8F22B224A57C3600F8C617 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				ACA2896B24A56D5E007211F6 /* ViewController.swift */,
+				ACA2896B24A56D5E007211F6 /* DiscussionsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -186,7 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACA2896C24A56D5E007211F6 /* ViewController.swift in Sources */,
+				ACA2896C24A56D5E007211F6 /* DiscussionsViewController.swift in Sources */,
 				ACA2896824A56D5E007211F6 /* AppDelegate.swift in Sources */,
 				ACA2896A24A56D5E007211F6 /* SceneDelegate.swift in Sources */,
 			);
@@ -334,6 +334,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = EasyChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -351,6 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = EasyChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

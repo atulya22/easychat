@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DiscussionsViewController.swift
 //  EasyChat
 //
 //  Created by Atulya Shetty on 6/25/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DiscussionsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
