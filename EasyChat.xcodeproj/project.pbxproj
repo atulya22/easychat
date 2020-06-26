@@ -37,6 +37,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC8F22AF24A57C0800F8C617 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC8F22B424A57C6D00F8C617 /* Storyboards */,
+				ACA2897024A56D5F007211F6 /* Assets.xcassets */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AC8F22B024A57C2B00F8C617 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AC8F22B124A57C3000F8C617 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AC8F22B224A57C3600F8C617 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				ACA2896B24A56D5E007211F6 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AC8F22B324A57C3E00F8C617 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ACA2896724A56D5E007211F6 /* AppDelegate.swift */,
+				ACA2896924A56D5E007211F6 /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AC8F22B424A57C6D00F8C617 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				ACA2896D24A56D5E007211F6 /* Main.storyboard */,
+				ACA2897224A56D5F007211F6 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		ACA2895B24A56D5E007211F6 = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +105,11 @@
 		ACA2896624A56D5E007211F6 /* EasyChat */ = {
 			isa = PBXGroup;
 			children = (
-				ACA2896724A56D5E007211F6 /* AppDelegate.swift */,
-				ACA2896924A56D5E007211F6 /* SceneDelegate.swift */,
-				ACA2896B24A56D5E007211F6 /* ViewController.swift */,
-				ACA2896D24A56D5E007211F6 /* Main.storyboard */,
-				ACA2897024A56D5F007211F6 /* Assets.xcassets */,
-				ACA2897224A56D5F007211F6 /* LaunchScreen.storyboard */,
+				AC8F22B324A57C3E00F8C617 /* Resources */,
+				AC8F22B224A57C3600F8C617 /* Controllers */,
+				AC8F22B124A57C3000F8C617 /* ViewModels */,
+				AC8F22B024A57C2B00F8C617 /* Models */,
+				AC8F22AF24A57C0800F8C617 /* Views */,
 				ACA2897524A56D5F007211F6 /* Info.plist */,
 			);
 			path = EasyChat;
