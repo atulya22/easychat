@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		254E6FB9444EAEC0820D67D8 /* Pods_EasyChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E547A2D29B009AE33442385C /* Pods_EasyChat.framework */; };
 		AC8F22B624A581B400F8C617 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22B524A581B400F8C617 /* LoginViewController.swift */; };
 		AC8F22B824A581C300F8C617 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22B724A581C300F8C617 /* RegisterViewController.swift */; };
 		AC8F22BA24A5829500F8C617 /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22B924A5829500F8C617 /* ImageViewerViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06B96C1A45E7EDD344E2201E /* Pods-EasyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyChat.release.xcconfig"; path = "Target Support Files/Pods-EasyChat/Pods-EasyChat.release.xcconfig"; sourceTree = "<group>"; };
 		AC8F22B524A581B400F8C617 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AC8F22B724A581C300F8C617 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		AC8F22B924A5829500F8C617 /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +42,8 @@
 		ACA2897024A56D5F007211F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACA2897324A56D5F007211F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACA2897524A56D5F007211F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyChat.debug.xcconfig"; path = "Target Support Files/Pods-EasyChat/Pods-EasyChat.debug.xcconfig"; sourceTree = "<group>"; };
+		E547A2D29B009AE33442385C /* Pods_EasyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,12 +51,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254E6FB9444EAEC0820D67D8 /* Pods_EasyChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		177F087BC344605BBCAC5532 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */,
+				06B96C1A45E7EDD344E2201E /* Pods-EasyChat.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2A09B5D78B046E771934E4DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E547A2D29B009AE33442385C /* Pods_EasyChat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AC8F22AF24A57C0800F8C617 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +154,8 @@
 			children = (
 				ACA2896624A56D5E007211F6 /* EasyChat */,
 				ACA2896524A56D5E007211F6 /* Products */,
+				177F087BC344605BBCAC5532 /* Pods */,
+				2A09B5D78B046E771934E4DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACA2897824A56D5F007211F6 /* Build configuration list for PBXNativeTarget "EasyChat" */;
 			buildPhases = (
+				64BC2892AD2EA43BC4F7A212 /* [CP] Check Pods Manifest.lock */,
 				ACA2896024A56D5E007211F6 /* Sources */,
 				ACA2896124A56D5E007211F6 /* Frameworks */,
 				ACA2896224A56D5E007211F6 /* Resources */,
+				8CE37EC891795E9CDD37E836 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -220,6 +247,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		64BC2892AD2EA43BC4F7A212 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EasyChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CE37EC891795E9CDD37E836 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EasyChat/Pods-EasyChat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EasyChat/Pods-EasyChat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EasyChat/Pods-EasyChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ACA2896024A56D5E007211F6 /* Sources */ = {
@@ -378,6 +447,7 @@
 		};
 		ACA2897924A56D5F007211F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -396,6 +466,7 @@
 		};
 		ACA2897A24A56D5F007211F6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06B96C1A45E7EDD344E2201E /* Pods-EasyChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
