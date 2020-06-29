@@ -13,6 +13,8 @@
 		AC8F22BC24A582C600F8C617 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22BB24A582C600F8C617 /* VideoPlayerViewController.swift */; };
 		AC8F22BE24A5832300F8C617 /* StartDiscussionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22BD24A5832300F8C617 /* StartDiscussionViewController.swift */; };
 		AC8F22C024A5834100F8C617 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22BF24A5834100F8C617 /* ProfileViewController.swift */; };
+		AC8F22C424A675F300F8C617 /* AccountPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F22C324A675F200F8C617 /* AccountPreferences.swift */; };
+		AC90DFA024A6981300613A72 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC90DF9F24A6981300613A72 /* Extensions.swift */; };
 		ACA2896824A56D5E007211F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896724A56D5E007211F6 /* AppDelegate.swift */; };
 		ACA2896A24A56D5E007211F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896924A56D5E007211F6 /* SceneDelegate.swift */; };
 		ACA2896C24A56D5E007211F6 /* DiscussionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA2896B24A56D5E007211F6 /* DiscussionsViewController.swift */; };
@@ -28,6 +30,8 @@
 		AC8F22BB24A582C600F8C617 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		AC8F22BD24A5832300F8C617 /* StartDiscussionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDiscussionViewController.swift; sourceTree = "<group>"; };
 		AC8F22BF24A5834100F8C617 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AC8F22C324A675F200F8C617 /* AccountPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPreferences.swift; sourceTree = "<group>"; };
+		AC90DF9F24A6981300613A72 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		ACA2896424A56D5E007211F6 /* EasyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACA2896724A56D5E007211F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACA2896924A56D5E007211F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,8 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				ACA2896B24A56D5E007211F6 /* DiscussionsViewController.swift */,
-				AC8F22B524A581B400F8C617 /* LoginViewController.swift */,
-				AC8F22B724A581C300F8C617 /* RegisterViewController.swift */,
+				AC8F22C124A5855D00F8C617 /* Accounts */,
 				AC8F22B924A5829500F8C617 /* ImageViewerViewController.swift */,
 				AC8F22BB24A582C600F8C617 /* VideoPlayerViewController.swift */,
 				AC8F22BD24A5832300F8C617 /* StartDiscussionViewController.swift */,
@@ -89,6 +92,7 @@
 		AC8F22B324A57C3E00F8C617 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC8F22C224A675DD00F8C617 /* Helpers */,
 				ACA2896724A56D5E007211F6 /* AppDelegate.swift */,
 				ACA2896924A56D5E007211F6 /* SceneDelegate.swift */,
 			);
@@ -102,6 +106,24 @@
 				ACA2897224A56D5F007211F6 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		AC8F22C124A5855D00F8C617 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				AC8F22B524A581B400F8C617 /* LoginViewController.swift */,
+				AC8F22B724A581C300F8C617 /* RegisterViewController.swift */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
+		AC8F22C224A675DD00F8C617 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AC8F22C324A675F200F8C617 /* AccountPreferences.swift */,
+				AC90DF9F24A6981300613A72 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		ACA2895B24A56D5E007211F6 = {
@@ -204,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC8F22C424A675F300F8C617 /* AccountPreferences.swift in Sources */,
 				AC8F22BA24A5829500F8C617 /* ImageViewerViewController.swift in Sources */,
 				AC8F22B624A581B400F8C617 /* LoginViewController.swift in Sources */,
 				AC8F22B824A581C300F8C617 /* RegisterViewController.swift in Sources */,
@@ -212,6 +235,7 @@
 				ACA2896824A56D5E007211F6 /* AppDelegate.swift in Sources */,
 				AC8F22C024A5834100F8C617 /* ProfileViewController.swift in Sources */,
 				ACA2896A24A56D5E007211F6 /* SceneDelegate.swift in Sources */,
+				AC90DFA024A6981300613A72 /* Extensions.swift in Sources */,
 				AC8F22BE24A5832300F8C617 /* StartDiscussionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
