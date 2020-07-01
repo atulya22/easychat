@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		ACA2896F24A56D5E007211F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACA2896D24A56D5E007211F6 /* Main.storyboard */; };
 		ACA2897124A56D5F007211F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACA2897024A56D5F007211F6 /* Assets.xcassets */; };
 		ACA2897424A56D5F007211F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACA2897224A56D5F007211F6 /* LaunchScreen.storyboard */; };
+		ACCE6CBC24AD009F00193ACE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACCE6CBB24AD009F00193ACE /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		ACA2897024A56D5F007211F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACA2897324A56D5F007211F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACA2897524A56D5F007211F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACCE6CBB24AD009F00193ACE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyChat.debug.xcconfig"; path = "Target Support Files/Pods-EasyChat/Pods-EasyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E547A2D29B009AE33442385C /* Pods_EasyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -64,7 +66,6 @@
 				DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */,
 				06B96C1A45E7EDD344E2201E /* Pods-EasyChat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -170,6 +171,7 @@
 		ACA2896624A56D5E007211F6 /* EasyChat */ = {
 			isa = PBXGroup;
 			children = (
+				ACCE6CBB24AD009F00193ACE /* GoogleService-Info.plist */,
 				AC8F22B324A57C3E00F8C617 /* Resources */,
 				AC8F22B224A57C3600F8C617 /* Controllers */,
 				AC8F22B124A57C3000F8C617 /* ViewModels */,
@@ -241,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACA2897424A56D5F007211F6 /* LaunchScreen.storyboard in Resources */,
+				ACCE6CBC24AD009F00193ACE /* GoogleService-Info.plist in Resources */,
 				ACA2897124A56D5F007211F6 /* Assets.xcassets in Resources */,
 				ACA2896F24A56D5E007211F6 /* Main.storyboard in Resources */,
 			);
