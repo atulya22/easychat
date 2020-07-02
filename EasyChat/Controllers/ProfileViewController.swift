@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
+import GoogleSignIn
 
 
 class ProfileViewController: UIViewController {
@@ -49,21 +51,27 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                                       preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Log out",
-                                      style: .destructive, handler: { [weak self] _ in
-                                        guard let strongSelf = self else {
-                                            return
-                                        }
+                                            style: .destructive,
+                                            handler: { [weak self] _ in
+
+                            guard let strongSelf = self else {
+                                return
+                            }
+                            
+                            GIDSignIn.sharedInstance()?.signOut()
+                            FBSDKLoginKit.LoginManager().logOut()
                                         
-                                    do {
-                                        try FirebaseAuth.Auth.auth().signOut()
-                                        let vc = LoginViewController()
-                                        let nav = UINavigationController(rootViewController: vc)
-                                        nav.modalPresentationStyle = .fullScreen
-                                        strongSelf.present(nav, animated: true)
-                                    }
-                                    catch {
-                                        print("Failed to logut")
-                                    }
+                            do {
+                                try
+                                    FirebaseAuth.Auth.auth().signOut()
+                                    let vc = LoginViewController()
+                                    let nav = UINavigationController(rootViewController: vc)
+                                    nav.modalPresentationStyle = .fullScreen
+                                strongSelf.present(nav, animated: true)
+                            }
+                            catch {
+                                print("Failed to logut")
+                            }
                                                                 
         }))
         

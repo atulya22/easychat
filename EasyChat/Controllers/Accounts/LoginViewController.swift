@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 
 class LoginViewController: UIViewController {
@@ -24,6 +25,12 @@ class LoginViewController: UIViewController {
         button.permissions = ["email", "public_profile"]
         return button
     }()
+    
+    private let googleLoginButton : GIDSignInButton = {
+        let button = GIDSignInButton()
+        return button
+    }()
+    
 
     
     private let emailField: UITextField = {
@@ -75,9 +82,24 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
+    private var loginObserver : NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Called viewdidLoad")
+        
+        loginObserver = NotificationCenter.default.addObserver(forName:.didLoginNotification, object: nil, queue: .main, using: { [weak self] _ in
+                                                
+            guard let strongSelf = self else {
+                return
+            }
+                                                
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                                                
+        })
+        
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
 
         title = "Log in"
         view.backgroundColor = .white
@@ -101,6 +123,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(FBLoginBTN)
+        scrollView.addSubview(googleLoginButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,6 +135,7 @@ class LoginViewController: UIViewController {
         setupPasswordFieldConstraints()
         setupLoginButtonConstraints()
         setupFacebookLoginButtonConstraints()
+        setupGoogleLoginButtonConstraints()
     }
     
     func setupLogoViewConstraints() {
@@ -173,6 +197,23 @@ class LoginViewController: UIViewController {
         FBLoginBTN.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20).isActive = true
     }
 
+    func setupGoogleLoginButtonConstraints() {
+        
+        googleLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        googleLoginButton.widthAnchor.constraint(equalToConstant: scrollView.width-60).isActive = true
+        
+        googleLoginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
+        
+        googleLoginButton.topAnchor.constraint(equalTo: FBLoginBTN.bottomAnchor, constant: 20).isActive = true
+    }
+
+    
+    
+    
+    
+    
+    
+
     
     func addNavButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
@@ -222,6 +263,12 @@ class LoginViewController: UIViewController {
         print("Register button tapped")
         let vc = RegisterViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    deinit {
+        
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 }
 
