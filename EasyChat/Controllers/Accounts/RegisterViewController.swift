@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
@@ -18,7 +19,7 @@ class RegisterViewController: UIViewController {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .gray
         imageView.isUserInteractionEnabled = true
@@ -126,6 +127,7 @@ class RegisterViewController: UIViewController {
         scrollView.addSubview(registerButton)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfilePicture))
         profileImageView.addGestureRecognizer(gesture)
+        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
         
 
 
@@ -220,11 +222,70 @@ class RegisterViewController: UIViewController {
         print("Did Tap Register")
         presentPhotoActionSheet()
     }
-    func didTapRegisterButton() {
-        print("Did Tap Register")
+    @objc func didTapRegisterButton() {
+        firstName.resignFirstResponder()
+        lastName.resignFirstResponder()
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
+        
+        guard let firstName = firstName.text,
+            let lastName = lastName.text,
+            let email = emailField.text,
+            let password = passwordField.text,
+            !firstName.isEmpty,
+            !lastName.isEmpty,
+            !email.isEmpty,
+            !password.isEmpty else {
+                alertUserLoginError(message: "Please enter all information to continue")
+                return
+        }
+        
+        guard password.count >= 6 else {
+                alertUserLoginError(message: "Please enter password length greter than 6")
+                return
+        }
+            
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] authResult, error in
+           
+            guard let strongSelf = self else {
+                           return
+            }
+            guard authResult != nil, error == nil  else {
+                let error_code = AuthErrorCode(rawValue: error!._code)
+                switch error_code {
+                case .emailAlreadyInUse:
+                    strongSelf.alertUserLoginError(message: "An Account with that email already exists")
+                default:
+                    print("Error")
+            }
+                strongSelf.alertUserLoginError(message: "Error creating account")
+                return
+            }
+            
+            DatabaseManager.shared.insertUser(with: AppUser(firstName: firstName,
+                                                        lastName: lastName,
+                                                        emailAddress: email))
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+          
+      })
+        
+}
+    
+    
+    func alertUserLoginError(message: String) {
+        let alert = UIAlertController(title: "Error",
+                                           message: message,
+                                           preferredStyle: .alert)
+             
+        alert.addAction(UIAlertAction(title: "Dismiss",
+                                           style: .cancel,
+                                           handler: nil))
+        present(alert, animated: true)
     }
 
 }
+
 extension RegisterViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

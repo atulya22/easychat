@@ -8,6 +8,9 @@ target 'EasyChat' do
   # Pods for EasyChat
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
-pod 'Firebase/Database' 	
+pod 'Firebase/Database'
+
+# SDK
+pod 'FBSDKLoginKit' 	
 
 end

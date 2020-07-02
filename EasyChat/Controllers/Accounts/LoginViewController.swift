@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FBSDKLoginKit
+
 
 class LoginViewController: UIViewController {
 
@@ -15,6 +18,13 @@ class LoginViewController: UIViewController {
         scrollView.clipsToBounds = true
         return scrollView
     }()
+    
+    private let FBLoginBTN : FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["email", "public_profile"]
+        return button
+    }()
+
     
     private let emailField: UITextField = {
         let field = UITextField()
@@ -79,32 +89,48 @@ class LoginViewController: UIViewController {
         
         emailField.delegate = self
         passwordField.delegate = self
-        
+        FBLoginBTN.delegate = self
+        addSubviews()
+
+    }
+    
+    func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(logoImageView)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
-
+        scrollView.addSubview(FBLoginBTN)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.frame = view.bounds
-        let size = scrollView.width/3
-        let margins = scrollView.layoutMarginsGuide
-        let logoViewMargins = logoImageView.layoutMarginsGuide
-        let emailFieldMargins = emailField.layoutMarginsGuide
-        let passwordFieldMargins = passwordField.layoutMarginsGuide
-
         
+        setupLogoViewConstraints()
+        setupEmailFieldConstraints()
+        setupPasswordFieldConstraints()
+        setupLoginButtonConstraints()
+        setupFacebookLoginButtonConstraints()
+    }
+    
+    func setupLogoViewConstraints() {
+        
+        let size = scrollView.width/3
+
+        let margins = scrollView.layoutMarginsGuide
+
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20).isActive = true
         logoImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: (scrollView.width-size)/2).isActive = true
         logoImageView.widthAnchor.constraint(equalToConstant: size).isActive = true
         logoImageView.heightAnchor.constraint(equalToConstant: size).isActive = true
+    }
+    
+    func setupEmailFieldConstraints() {
         
-
+        let logoViewMargins = logoImageView.layoutMarginsGuide
+        
         emailField.translatesAutoresizingMaskIntoConstraints = false
         
         emailField.widthAnchor.constraint(equalToConstant: scrollView.width-60).isActive = true
@@ -112,42 +138,41 @@ class LoginViewController: UIViewController {
         emailField.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
 
         emailField.topAnchor.constraint(equalTo: logoViewMargins.bottomAnchor, constant: 10).isActive = true
-        
-        
+    }
+    
+    func setupPasswordFieldConstraints() {
+        let emailFieldMargins = emailField.layoutMarginsGuide
+
         passwordField.translatesAutoresizingMaskIntoConstraints = false
 
         passwordField.widthAnchor.constraint(equalToConstant: scrollView.width-60).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 52).isActive = true
         passwordField.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
         passwordField.topAnchor.constraint(equalTo: emailFieldMargins.bottomAnchor, constant: 25).isActive = true
-        
-        
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setupLoginButtonConstraints() {
+        let passwordFieldMargins = passwordField.layoutMarginsGuide
 
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        
         loginButton.widthAnchor.constraint(equalToConstant: scrollView.width-60).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 52).isActive = true
         loginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
         loginButton.topAnchor.constraint(equalTo: passwordFieldMargins.bottomAnchor, constant: 25).isActive = true
-//        logoImageView.frame = CGRect(x: (scrollView.width-size)/2,
-//                                     y: 20,
-//                                     width: size,
-//                                     height: size)
-//
-//        emailField.frame = CGRect(x: 30,
-//                                  y: logoImageView.bottom+10,
-//                                  width: (scrollView.width-size)/2,
-//                                  height: 52)
-//
-//        passwordField.frame = CGRect(x: 30,
-//                                     y: emailField.bottom+10,
-//                                     width: scrollView.width-60,
-//                                     height: 52)
-//
-//        loginButton.frame = CGRect(x: 30,
-//                                   y: passwordField.bottom + 10,
-//                                   width: scrollView.width-60,
-//                                   height: 52)
+        
     }
+    
+    func setupFacebookLoginButtonConstraints() {
+        
+        FBLoginBTN.translatesAutoresizingMaskIntoConstraints = false
+        FBLoginBTN.widthAnchor.constraint(equalToConstant: scrollView.width-60).isActive = true
+        
+        FBLoginBTN.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
+        
+        FBLoginBTN.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20).isActive = true
+    }
+
     
     func addNavButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
@@ -163,7 +188,24 @@ class LoginViewController: UIViewController {
                 alertUserLoginError()
                 return
         }
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email,
+                                        password: password,
+                                        completion: { [weak self] authResult, error in
+            guard let strongSelf = self else {
+                return
+            }
+                                            
+            guard let result = authResult, error == nil else {
+                print("Login Error")
+                return
+            }
+            print(result)
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            
+        })
     }
+        
     
     func alertUserLoginError() {
         let alert = UIAlertController(title: "Error",
@@ -181,17 +223,6 @@ class LoginViewController: UIViewController {
         let vc = RegisterViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -208,3 +239,79 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension LoginViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        
+    }
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        
+        guard let token = result?.token?.tokenString else {
+            print("Failed to login with facebook ")
+            return
+        }
+        
+        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                         parameters: ["fields": "email, name"],
+                                                         tokenString: token, version: nil, httpMethod: .get)
+        
+        facebookRequest.start(completionHandler: { _, result, error in
+            guard let result = result as? [String: Any],
+                error == nil else {
+                print("Facebook graph request failed")
+                return
+            }
+            
+            guard let fullName = result["name"] as? String,
+                let email = result["email"] as? String else {
+                return
+            }
+            
+            let nameComponent = fullName.components(separatedBy: " ")
+            let firstName = nameComponent[0]
+            let lastName = nameComponent[1]
+            
+            print(firstName)
+            print(lastName)
+            
+            
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                
+                if !exists {
+                    let user = AppUser(firstName: firstName,
+                                       lastName: lastName,
+                                       emailAddress: email)
+                    
+                    DatabaseManager.shared.insertUser(with: user)
+                }
+            })
+            
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: token)
+            
+            FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] authresult, error in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                guard authresult != nil , error == nil else {
+                    if let error = error {
+                        print(error)
+                    }
+                    return
+                }
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                
+            })
+        })
+        
+
+        
+    }
+    
+    
+}
+
