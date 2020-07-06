@@ -8,8 +8,11 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -128,10 +131,6 @@ class RegisterViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfilePicture))
         profileImageView.addGestureRecognizer(gesture)
         registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
-        
-
-
-
         // Do any additional setup after loading the view.
     }
     
@@ -245,30 +244,47 @@ class RegisterViewController: UIViewController {
                 alertUserLoginError(message: "Please enter password length greter than 6")
                 return
         }
-            
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] authResult, error in
-           
+        
+        spinner.show(in: view)
+        
+        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
             guard let strongSelf = self else {
-                           return
-            }
-            guard authResult != nil, error == nil  else {
-                let error_code = AuthErrorCode(rawValue: error!._code)
-                switch error_code {
-                case .emailAlreadyInUse:
-                    strongSelf.alertUserLoginError(message: "An Account with that email already exists")
-                default:
-                    print("Error")
-            }
-                strongSelf.alertUserLoginError(message: "Error creating account")
                 return
             }
             
-            DatabaseManager.shared.insertUser(with: AppUser(firstName: firstName,
-                                                        lastName: lastName,
-                                                        emailAddress: email))
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
-          
-      })
+            guard !exists else {
+                print("User exists")
+                return
+            }
+            
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+                
+                DispatchQueue.main.async {
+                    strongSelf.spinner.dismiss()
+                }
+                guard authResult != nil, error == nil  else {
+                    let error_code = AuthErrorCode(rawValue: error!._code)
+                    switch error_code {
+                    case .emailAlreadyInUse:
+                        strongSelf.alertUserLoginError(message: "An Account with that email already exists")
+                    default:
+                        print("Error")
+                        
+                    }
+                    strongSelf.alertUserLoginError(message: "Error creating account")
+                    return
+                }
+                  
+                DatabaseManager.shared.insertUser(with: AppUser(firstName: firstName,
+                                                              lastName: lastName,
+                                                              emailAddress: email))
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                
+            })
+        })
+            
+
         
 }
     

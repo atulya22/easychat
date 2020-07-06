@@ -10,10 +10,13 @@ import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
+import JGProgressHUD
 
 
 class LoginViewController: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -210,11 +213,6 @@ class LoginViewController: UIViewController {
     
     
     
-    
-    
-    
-
-    
     func addNavButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
                                                             style: .done,
@@ -230,11 +228,15 @@ class LoginViewController: UIViewController {
                 return
         }
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email,
-                                        password: password,
-                                        completion: { [weak self] authResult, error in
+        spinner.show(in: view)
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
             guard let strongSelf = self else {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
             }
                                             
             guard let result = authResult, error == nil else {
