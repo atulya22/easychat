@@ -30,11 +30,18 @@ extension DatabaseManager {
         })
     }
     /// Insert user to database
-    public func insertUser(with user: AppUser) {
+    public func insertUser(with user: AppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.cleanEmail).setValue([
             "first_name": user.firstName,
             "last_name" : user.lastName
-        ])
+        ], withCompletionBlock: {error, _ in
+            guard error == nil else {
+                print("Database write failed")
+                completion(false)
+                return
+            }
+            completion(true)
+        })
     }
 }
 
@@ -46,5 +53,9 @@ struct AppUser {
     var cleanEmail : String {
         let email = emailAddress.replacingOccurrences(of: ".", with: ",")
         return email
+    }
+    
+    var profilePictureFileName: String {
+        return "\(cleanEmail)_profile_picture.png"
     }
 }

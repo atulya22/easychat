@@ -74,11 +74,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         DatabaseManager.shared.userExists(with: email, completion: {exists in
             if !exists {
                 
-                let user = AppUser(firstName: firstName,
+                let appUser = AppUser(firstName: firstName,
                                    lastName: lastName,
                                    emailAddress: email)
                 
-                DatabaseManager.shared.insertUser(with: user)
+                DatabaseManager.shared.insertUser(with: appUser, completion: { success in
+                    if success {
+                        
+                        if user.profile.hasImage {
+                            guard let url = user.profile.imageURL(withDimension: 200) else {
+                                return
+                            }
+                            
+                            URLSession.shared.dataTask(with: url, completionHandler: {data, _, _ in
+                                
+                                guard let data = data else {
+                                    return
+                                }
+                                let fileName = appUser.profilePictureFileName
+                                print("Received data from google, upload to firebase")
+                                StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                        print(downloadUrl)
+                                    case .failure(let error):
+                                        print("Storage Manager Error: \(error)")
+                                    }
+                                })
+                            }).resume()
+          
+                        }
+                        
+                    }
+                })
             }
         })
         

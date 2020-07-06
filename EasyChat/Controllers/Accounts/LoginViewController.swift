@@ -302,7 +302,7 @@ extension LoginViewController: LoginButtonDelegate {
         }
         
         let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                         parameters: ["fields": "email, name"],
+                                                         parameters: ["fields": "email, first_name, last_name, picture.type(large)"],
                                                          tokenString: token, version: nil, httpMethod: .get)
         
         facebookRequest.start(completionHandler: { _, result, error in
@@ -312,18 +312,16 @@ extension LoginViewController: LoginButtonDelegate {
                 return
             }
             
-            guard let fullName = result["name"] as? String,
-                let email = result["email"] as? String else {
-                return
+            print(result)
+                        
+            guard let firstName = result["first_name"] as? String,
+                let lastName = result["last_name"] as? String,
+                let email = result["email"] as? String,
+                let picture = result["picture"] as? [String: Any],
+                let data = picture["data"] as? [String: Any],
+                let pictureUrl = data["url"] as? String else {
+                    return
             }
-            
-            let nameComponent = fullName.components(separatedBy: " ")
-            let firstName = nameComponent[0]
-            let lastName = nameComponent[1]
-            
-            print(firstName)
-            print(lastName)
-            
             
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 
@@ -332,7 +330,34 @@ extension LoginViewController: LoginButtonDelegate {
                                        lastName: lastName,
                                        emailAddress: email)
                     
-                    DatabaseManager.shared.insertUser(with: user)
+                    DatabaseManager.shared.insertUser(with: user, completion: {success in
+                        if success {
+                            
+                            guard let url = URL(string: pictureUrl) else {
+                                return
+                            }
+                            
+                            print("Fetch image from facebook ")
+                            URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+                                guard let data = data else {
+                                    print("Failed to get image from facebook ")
+                                    return
+                                }
+                                
+                                let fileName = user.profilePictureFileName
+                                print("Received data from FB, upload to firebase")
+                                StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                        print(downloadUrl)
+                                    case .failure(let error):
+                                        print("Storage Manager Error: \(error)")
+                                    }
+                                })
+                            }).resume()
+                        }
+                    })
                 }
             })
             
