@@ -40,7 +40,6 @@ class DiscussionsViewController: UIViewController {
         view.addSubview(noConversationsLabel)
         setupTableView()
         fetchConversations()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -50,8 +49,22 @@ class DiscussionsViewController: UIViewController {
     
     @objc func didTapComposeButton() {
         let vc = StartDiscussionViewController()
+        vc.completion = { [weak self] result in
+            self?.createNewDiscussion(result: result)
+        }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
+    }
+    
+    private func createNewDiscussion(result: [String: String]) {
+        guard let name = result["name"], let email = result["email"] else {
+            return
+        }
+        let vc = ChatViewController(with: email)
+        vc.isNewConversation = true
+        vc.title = name
+        vc.navigationItem.largeTitleDisplayMode  = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func setupTableView() {
@@ -101,7 +114,7 @@ extension DiscussionsViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController()
+        let vc = ChatViewController(with: "ema@gmail.com")
         vc.title = "Some Person"
         vc.navigationItem.largeTitleDisplayMode  = .never
         navigationController?.pushViewController(vc, animated: true)
