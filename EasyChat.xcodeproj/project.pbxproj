@@ -27,6 +27,7 @@
 		ACF39CF424AD3C2D0056B0D5 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF324AD3C2D0056B0D5 /* DatabaseManager.swift */; };
 		ACF39CF624B24F0D0056B0D5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF524B24F0D0056B0D5 /* ChatViewController.swift */; };
 		ACF39CF824B3639E0056B0D5 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF724B3639E0056B0D5 /* StorageManager.swift */; };
+		ACF39CFA24B407960056B0D5 /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		ACF39CF324AD3C2D0056B0D5 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		ACF39CF524B24F0D0056B0D5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACF39CF724B3639E0056B0D5 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
 		DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyChat.debug.xcconfig"; path = "Target Support Files/Pods-EasyChat/Pods-EasyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E547A2D29B009AE33442385C /* Pods_EasyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 			children = (
 				AC8F22B424A57C6D00F8C617 /* Storyboards */,
 				ACA2897024A56D5F007211F6 /* Assets.xcassets */,
+				ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				ACF39CF824B3639E0056B0D5 /* StorageManager.swift in Sources */,
 				AC90DFA024A6981300613A72 /* Extensions.swift in Sources */,
 				AC8F22BE24A5832300F8C617 /* StartDiscussionViewController.swift in Sources */,
+				ACF39CFA24B407960056B0D5 /* DiscussionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

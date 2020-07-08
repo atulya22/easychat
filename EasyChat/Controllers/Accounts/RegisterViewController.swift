@@ -253,8 +253,8 @@ class RegisterViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-                           strongSelf.spinner.dismiss()
-                       }
+                strongSelf.spinner.dismiss()
+            }
             
             guard !exists else {
                 print("User exists")
@@ -279,7 +279,10 @@ class RegisterViewController: UIViewController {
                 let user = AppUser(firstName: firstName,
                                lastName: lastName,
                                emailAddress: email)
-                  
+                
+                
+                UserDefaults.standard.set(email, forKey:"email")
+
                 DatabaseManager.shared.insertUser(with:user, completion: { success in
                     if success {
                         //uplpad image

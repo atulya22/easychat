@@ -121,6 +121,7 @@ extension StartDiscussionViewController: UISearchBarDelegate {
                     self?.users = usersCollection
                     self?.filterUsers(by: query)
                 case .failure(let error):
+                    self?.spinner.dismiss()
                     print("Failed to fetch users:\(error)")
                 }
             })

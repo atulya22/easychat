@@ -64,6 +64,8 @@ class ChatViewController: MessagesViewController {
     }()
     public var isNewConversation = false
     public let otherUserEmail: String
+    private let conversationId: String?
+
     
     private var messages = [Message]()
     
@@ -72,14 +74,19 @@ class ChatViewController: MessagesViewController {
             return nil
             
         }
-        return Sender(senderId: email,
-        displayName: "Jum",
+        
+        let safeEmail = DatabaseManager.cleanEmail(emailAddress: email)
+        return Sender(senderId: safeEmail,
+        displayName: "Me",
         photoURL: "")
          
     }
+    
 
-    init(with email:String) {
+
+    init(with email:String, id: String?) {
         self.otherUserEmail = email
+        self.conversationId = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -99,11 +106,38 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDisplayDelegate = self
         
         messageInputBar.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        messageInputBar.inputTextView.becomeFirstResponder()
+        if let conversationId = conversationId {
+            listenForMessages(id: conversationId, shouldScrollToBottom: true)
+        }
+    }
+    
+    private func listenForMessages(id: String, shouldScrollToBottom: Bool) {
+        DatabaseManager.shared.getAllMessagesForConversations(with: id, completion: { [weak self] result in
+            switch result {
+            case .success(let messages):
+                guard !messages.isEmpty else {
+                    return
+                }
+                self?.messages = messages
+                DispatchQueue.main.async {
+                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+
+                    if shouldScrollToBottom {
+                        self?.messagesCollectionView.scrollToBottom()
+                    }
+
+                }
+                
+            case .failure(let error):
+                print("Failed to list for messages:\(error)")
+            }
+                
+        })
     }
 }
 
@@ -114,9 +148,7 @@ extension ChatViewController:MessagesDataSource, MessagesLayoutDelegate, Message
             return sender
         }
         fatalError("Self Sender is nil, np cached email")
-        return Sender(senderId: "",
-                      displayName: "12",
-                      photoURL: "")
+
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -136,25 +168,34 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             let messageId = createMessageId() else {
             return
         }
-        
+        let message = Message(sender: selfSender,
+                              messageId: messageId,
+                              sentDate: Date(),
+                              kind: .text(text))
         print("Sending message: \(text)")
         if isNewConversation {
             //Create Conversation in database
             
-            let message = Message(sender: selfSender,
-                                  messageId: messageId,
-                                  sentDate: Date(),
-                                  kind: .text(text))
-            
-            DatabaseManager.shared.createNewConversation(with: otherUserEmail, firstMessage: message, completion: {[weak self] success in
+            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: { [weak self] success in
                 if success {
                     print("Message sent successfully")
+                    self?.isNewConversation = false
                 } else {
                     print("Failed to send message")
                 }
             })
         } else {
-            // Append to existing conversation
+            guard let conversationId = conversationId, let name = self.title  else {
+                return
+            }
+            // Append to existing conversatiseon
+            DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { success in
+                if success {
+                    print("Message sent to existing conversation")
+                } else {
+                    print("Failed to send message")
+                }
+            })
         }
     }
     
