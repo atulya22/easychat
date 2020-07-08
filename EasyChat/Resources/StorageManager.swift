@@ -17,6 +17,7 @@ final class StorageManager {
     
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
     
+    
     public func uploadProfilePicture(with data: Data,fileName: String, completion:@escaping UploadPictureCompletion) {
         storage.child("images/\(fileName)").putData(data, metadata: nil, completion: { metadata, error in
             guard error == nil else {
@@ -59,6 +60,31 @@ final class StorageManager {
             }
             
             completion(.success(url))
+        })
+    }
+    
+    /// Upload images sent as a conversation
+    public func uploadPhotoMessage(with data: Data, fileName: String, completion:@escaping UploadPictureCompletion) {
+        storage.child("message_images/\(fileName)").putData(data, metadata: nil, completion: { metadata, error in
+            guard error == nil else {
+                completion(.failure(StorageErrors.failedToUpload))
+                return
+            }
+            
+            self.storage.child("message_images/\(fileName)").downloadURL(completion: {url, error in
+                guard let url = url else {
+                    print("Failed to get Download Url")
+                    completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                    return
+                }
+                
+                let urlString = url.absoluteString
+                
+                print("Download url: \(urlString)")
+                
+                completion(.success(urlString))
+            })
+            
         })
     }
 }

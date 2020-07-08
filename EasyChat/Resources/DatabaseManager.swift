@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import MessageKit
 
 final class DatabaseManager {
     
@@ -293,10 +294,32 @@ extension DatabaseManager {
                         return nil
                 }
                 
+                var kind : MessageKind?
+                
+                if type == "photo" {
+                    guard let imageUrl = URL(string: content),
+                    let placeHolder = UIImage(systemName: "plus") else {
+                        return nil
+                    }
+                    
+                    let media = Media(url: imageUrl,
+                                      image: nil,
+                                      placeholderImage: placeHolder,
+                                      size: CGSize(width: 300, height: 300))
+                    kind = .photo(media)
+                } else {
+                    kind = .text(content)
+                }
+                
+                guard let finalKind = kind else {
+                    return nil
+                }
                 let senderObject = Sender(senderId: senderEmail,
                                           displayName: name,
                                           photoURL: "")
-                return Message(sender: senderObject, messageId: messageId, sentDate: date, kind: .text(content))
+                return Message(sender: senderObject,
+                               messageId: messageId,
+                               sentDate: date, kind: finalKind)
 
 
             })
@@ -342,7 +365,10 @@ extension DatabaseManager {
                 textMessage = messageText
             case .attributedText(_):
                 break
-            case .photo(_):
+            case .photo(let mediaItem):
+                if let targetUrl = mediaItem.url?.absoluteString {
+                    textMessage = targetUrl
+                }
                 break
             case .video(_):
                 break
@@ -374,7 +400,6 @@ extension DatabaseManager {
             currentMessages.append(messageEntry)
             strongSelf.database.child("\(conversation)/messages").setValue(currentMessages, withCompletionBlock: { error, _ in
                 guard error == nil else {
-                    print("Unable to set conversations messages:\(error)")
 
                     completion(false)
                     return
