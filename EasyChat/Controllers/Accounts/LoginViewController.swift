@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
         field.placeholder = "Email Address..."
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field
     }()
     
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
         field.placeholder = "Password..."
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field
     }()
     
@@ -105,7 +105,7 @@ class LoginViewController: UIViewController {
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
         title = "Log in"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         // Do any additional setup after loading the view.
         addNavButton()
@@ -146,6 +146,9 @@ class LoginViewController: UIViewController {
         let size = scrollView.width/3
 
         let margins = scrollView.layoutMarginsGuide
+        
+        
+        logoImageView.addConstraints(<#T##constraints: [NSLayoutConstraint]##[NSLayoutConstraint]#>)
 
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20).isActive = true
@@ -239,7 +242,7 @@ class LoginViewController: UIViewController {
                 strongSelf.spinner.dismiss()
             }
                                             
-            guard let result = authResult, error == nil else {
+            guard let _ = authResult, error == nil else {
                 print("Login Error")
                 return
             }

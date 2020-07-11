@@ -28,6 +28,8 @@
 		ACF39CF624B24F0D0056B0D5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF524B24F0D0056B0D5 /* ChatViewController.swift */; };
 		ACF39CF824B3639E0056B0D5 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF724B3639E0056B0D5 /* StorageManager.swift */; };
 		ACF39CFA24B407960056B0D5 /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */; };
+		ACF39CFC24B607A00056B0D5 /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CFB24B607A00056B0D5 /* NewConversationCell.swift */; };
+		ACF39CFE24B76A860056B0D5 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CFD24B76A860056B0D5 /* LocationPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		ACF39CF524B24F0D0056B0D5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACF39CF724B3639E0056B0D5 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
+		ACF39CFB24B607A00056B0D5 /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
+		ACF39CFD24B76A860056B0D5 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		DAFC2F7396E0061547E66258 /* Pods-EasyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyChat.debug.xcconfig"; path = "Target Support Files/Pods-EasyChat/Pods-EasyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E547A2D29B009AE33442385C /* Pods_EasyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -93,6 +97,7 @@
 				AC8F22B424A57C6D00F8C617 /* Storyboards */,
 				ACA2897024A56D5F007211F6 /* Assets.xcassets */,
 				ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */,
+				ACF39CFB24B607A00056B0D5 /* NewConversationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 				AC8F22BD24A5832300F8C617 /* StartDiscussionViewController.swift */,
 				AC8F22BF24A5834100F8C617 /* ProfileViewController.swift */,
 				ACF39CF524B24F0D0056B0D5 /* ChatViewController.swift */,
+				ACF39CFD24B76A860056B0D5 /* LocationPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC8F22C424A675F300F8C617 /* AccountPreferences.swift in Sources */,
+				ACF39CFE24B76A860056B0D5 /* LocationPickerViewController.swift in Sources */,
 				AC8F22BA24A5829500F8C617 /* ImageViewerViewController.swift in Sources */,
 				ACF39CF424AD3C2D0056B0D5 /* DatabaseManager.swift in Sources */,
 				AC8F22B624A581B400F8C617 /* LoginViewController.swift in Sources */,
@@ -355,6 +362,7 @@
 				AC90DFA024A6981300613A72 /* Extensions.swift in Sources */,
 				AC8F22BE24A5832300F8C617 /* StartDiscussionViewController.swift in Sources */,
 				ACF39CFA24B407960056B0D5 /* DiscussionTableViewCell.swift in Sources */,
+				ACF39CFC24B607A00056B0D5 /* NewConversationCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

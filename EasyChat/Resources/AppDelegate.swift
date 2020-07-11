@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         UserDefaults.standard.set(email, forKey: "email")
 
         
-        DatabaseManager.shared.userExists(with: email, completion: {exists in
+        DatabaseManager.shared.userExists(with: email, completion: { exists in
             if !exists {
                 
                 let appUser = AppUser(firstName: firstName,
