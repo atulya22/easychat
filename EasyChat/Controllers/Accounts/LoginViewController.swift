@@ -148,7 +148,6 @@ class LoginViewController: UIViewController {
         let margins = scrollView.layoutMarginsGuide
         
         
-        logoImageView.addConstraints(<#T##constraints: [NSLayoutConstraint]##[NSLayoutConstraint]#>)
 
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20).isActive = true
@@ -255,13 +254,13 @@ class LoginViewController: UIViewController {
                         let lastName = userData["last_name"] as? String else {
                             return
                     }
+                    UserDefaults.standard.set(email, forKey: "email")
                     UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
                 case .failure(let error):
                     print("Failed to read error:\(error) ")
                 }
             })
 
-            UserDefaults.standard.set(email, forKey: "email")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             
         })

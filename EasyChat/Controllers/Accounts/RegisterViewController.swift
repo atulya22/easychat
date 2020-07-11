@@ -275,13 +275,14 @@ class RegisterViewController: UIViewController {
                     strongSelf.alertUserLoginError(message: "Error creating account")
                     return
                 }
-                
+                UserDefaults.standard.set(email, forKey:"email")
+                UserDefaults.standard.set("\(firstName) \(lastName)", forKey:"name")
+
                 let user = AppUser(firstName: firstName,
                                lastName: lastName,
                                emailAddress: email)
                 
                 
-                UserDefaults.standard.set(email, forKey:"email")
 
                 DatabaseManager.shared.insertUser(with:user, completion: { success in
                     if success {

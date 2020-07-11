@@ -76,6 +76,10 @@ struct Media: MediaItem {
 
 class ChatViewController: MessagesViewController {
     
+    
+    private var senderPhotoURL: URL?
+    private var otherPhotoURL: URL?
+    
     internal static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -85,7 +89,7 @@ class ChatViewController: MessagesViewController {
     }()
     public var isNewConversation = false
     public let otherUserEmail: String
-    private let conversationId: String?
+    private var conversationId: String?
 
     
     private var messages = [Message]()
@@ -169,7 +173,7 @@ class ChatViewController: MessagesViewController {
     }
     
     private func presentLocationPicker() {
-        let vc = LocationPickerViewController(coordinates: nil)
+        let vc = LocationPickerViewController(coordinates: nil, isPickable: true)
         vc.title = "Select Location"
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.completion = { [weak self] selectedCoordinates in
@@ -341,6 +345,71 @@ extension ChatViewController:MessagesDataSource, MessagesLayoutDelegate, Message
             break
         }
     }
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId {
+            return .link
+        }
+        return .secondarySystemBackground
+    }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        
+        let sender = message.sender
+        
+        if sender.senderId == selfSender?.senderId {
+            if let currentUserImage = self.senderPhotoURL {
+                avatarView.sd_setImage(with: currentUserImage, completed: nil)
+            } else {
+                guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+                    return
+                }
+                let cleanEmail = DatabaseManager.cleanEmail(emailAddress: email)
+                
+                let path = "images/\(cleanEmail)_profile_picture.png"
+                StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
+                    
+                    switch result {
+                    case .success(let url):
+                        self?.senderPhotoURL = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url, completed: nil)
+                        }
+                    case .failure(let error):
+                        print("Failed to download profile image: \(error)")
+                        
+                    }
+                })
+            }
+
+        } else {
+            if let otherUserImage = otherPhotoURL {
+                avatarView.sd_setImage(with: otherUserImage, completed: nil)
+            } else {
+                
+                let email = self.otherUserEmail
+            
+                let cleanEmail = DatabaseManager.cleanEmail(emailAddress: email)
+                
+                let path = "images/\(cleanEmail)_profile_picture.png"
+                StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
+                    
+                    switch result {
+                    case .success(let url):
+                        self?.otherPhotoURL = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url, completed: nil)
+                        }
+                    case .failure(let error):
+                        print("Failed to download profile image: \(error)")
+                        
+                    }
+                })
+
+            }
+        }
+    }
 }
 
 
@@ -384,7 +453,7 @@ extension ChatViewController: MessageCellDelegate {
         case .location(let locationData):
          
             let coordinates = locationData.location.coordinate
-            let vc = LocationPickerViewController(coordinates: coordinates)
+            let vc = LocationPickerViewController(coordinates: coordinates, isPickable: false)
             vc.title = "Location"
             self.navigationController?.pushViewController(vc, animated: true)
          
@@ -413,6 +482,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 if success {
                     print("Message sent successfully")
                     self?.isNewConversation = false
+                    let newConversationId = "conversation_\(message.messageId)"
+                    self?.conversationId = newConversationId
+                    self?.listenForMessages(id: newConversationId,
+                                            shouldScrollToBottom: true)
+                    self?.messageInputBar.inputTextView.text = nil
                 } else {
                     print("Failed to send message")
                 }
@@ -422,8 +496,9 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 return
             }
             // Append to existing conversatiseon
-            DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { success in
+            DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { [weak self] success in
                 if success {
+                    self?.messageInputBar.inputTextView.text = nil
                     print("Message sent to existing conversation")
                 } else {
                     print("Failed to send message")

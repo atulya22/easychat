@@ -20,9 +20,9 @@ class LocationPickerViewController: UIViewController {
         return map
     }()
     
-    init(coordinates: CLLocationCoordinate2D?) {
+    init(coordinates: CLLocationCoordinate2D?, isPickable: Bool) {
         self.coordinates = coordinates
-        self.isPickable = false
+        self.isPickable = isPickable
         super.init(nibName: nil, bundle: nil)
     }
     

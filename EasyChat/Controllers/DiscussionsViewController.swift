@@ -57,7 +57,6 @@ class DiscussionsViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
         setupTableView()
-        fetchConversations()
         startListeningforConversations()
         
         loginObserver = NotificationCenter.default.addObserver(forName:.didLoginNotification, object: nil, queue: .main, using: { [weak self] _ in
@@ -73,6 +72,10 @@ class DiscussionsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        noConversationsLabel.frame = CGRect(x: 10,
+                                            y: (view.height-100)/2,
+                                            width: view.width-20,
+                                            height: 100)
     }
     
     private func startListeningforConversations() {
@@ -91,8 +94,13 @@ class DiscussionsViewController: UIViewController {
             case .success(let conversations):
                 print(conversations)
                 guard !conversations.isEmpty else {
+                    self?.tableView.isHidden = true
+                    self?.noConversationsLabel.isHidden = false
                     return
                 }
+                self?.tableView.isHidden = false
+                self?.noConversationsLabel.isHidden = true
+
                 self?.conversations = conversations
                 print("Success Fetching Conversations")
 
@@ -100,6 +108,8 @@ class DiscussionsViewController: UIViewController {
                     self?.tableView.reloadData()
                 }
             case.failure(let error):
+                self?.tableView.isHidden = true
+                self?.noConversationsLabel.isHidden = false
                 print("Failed fetch to messages:\(error)")
             }
         })
@@ -165,10 +175,6 @@ class DiscussionsViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    func fetchConversations() {
-        tableView.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
