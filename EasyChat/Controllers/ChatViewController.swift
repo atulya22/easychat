@@ -110,8 +110,8 @@ class ChatViewController: MessagesViewController {
 
 
     init(with email:String, id: String?) {
-        self.otherUserEmail = email
-        self.conversationId = id
+        otherUserEmail = email
+        conversationId = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -359,7 +359,7 @@ extension ChatViewController:MessagesDataSource, MessagesLayoutDelegate, Message
         let sender = message.sender
         
         if sender.senderId == selfSender?.senderId {
-            if let currentUserImage = self.senderPhotoURL {
+            if let currentUserImage = senderPhotoURL {
                 avatarView.sd_setImage(with: currentUserImage, completed: nil)
             } else {
                 guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
@@ -388,7 +388,7 @@ extension ChatViewController:MessagesDataSource, MessagesLayoutDelegate, Message
                 avatarView.sd_setImage(with: otherUserImage, completed: nil)
             } else {
                 
-                let email = self.otherUserEmail
+                let email = otherUserEmail
             
                 let cleanEmail = DatabaseManager.cleanEmail(emailAddress: email)
                 
@@ -427,7 +427,7 @@ extension ChatViewController: MessageCellDelegate {
                 return
             }
             let vc = ImageViewerViewController(with: imageUrl)
-            self.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
         case .video(let media):
             guard let videoUrl = media.url else {
                 return
@@ -455,7 +455,7 @@ extension ChatViewController: MessageCellDelegate {
             let coordinates = locationData.location.coordinate
             let vc = LocationPickerViewController(coordinates: coordinates, isPickable: false)
             vc.title = "Location"
-            self.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
          
         default:
             break
@@ -478,7 +478,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         if isNewConversation {
             //Create Conversation in database
             
-            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: { [weak self] success in
+            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: title ?? "User", firstMessage: message, completion: { [weak self] success in
                 if success {
                     print("Message sent successfully")
                     self?.isNewConversation = false
@@ -492,7 +492,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 }
             })
         } else {
-            guard let conversationId = conversationId, let name = self.title  else {
+            guard let conversationId = conversationId, let name = title  else {
                 return
             }
             // Append to existing conversatiseon
@@ -534,7 +534,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 
         guard let messageId = createMessageId(),
             let conversationId = conversationId,
-            let name = self.title,
+            let name = title,
             let selfSender = self.selfSender else {
                 return
         }

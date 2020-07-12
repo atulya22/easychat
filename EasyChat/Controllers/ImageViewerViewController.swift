@@ -31,7 +31,7 @@ class ImageViewerViewController: UIViewController {
         view.backgroundColor = .black
         navigationItem.largeTitleDisplayMode = .never
         view.addSubview(imageView)
-        self.imageView.sd_setImage(with: self.url, completed: nil)
+        imageView.sd_setImage(with: url, completed: nil)
     }
     
     override func viewDidLayoutSubviews() {

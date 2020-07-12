@@ -46,51 +46,54 @@ extension DatabaseManager {
         database.child(user.cleanEmail).setValue([
             "first_name": user.firstName,
             "last_name" : user.lastName
-        ], withCompletionBlock: {error, _ in
-            guard error == nil else {
-                print("Database write failed")
-                completion(false)
-                return
-            }
-            
-            self.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
-                if var usersCollection = snapshot.value as? [[String: String]] {
-                    //append to user diction
-                    let newElement = [
-                        "name": user.firstName + " " + user.lastName,
-                        "email": user.cleanEmail
-                    ]
-                    usersCollection.append(newElement)
-                    
-                    self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
-                        guard error == nil else {
-                            completion(false)
-                            return
-                        }
-                        completion(true)
-                        
-                    })
-                    
-                } else {
-                    let newCollection:  [[String: String]] = [
-                        [
+            ], withCompletionBlock: { [weak self] error, _  in
+                guard error == nil else {
+                    print("Database write failed")
+                    completion(false)
+                    return
+                }
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
+                    if var usersCollection = snapshot.value as? [[String: String]] {
+                        //append to user diction
+                        let newElement = [
                             "name": user.firstName + " " + user.lastName,
                             "email": user.cleanEmail
                         ]
-                    ]
-                    self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                        usersCollection.append(newElement)
                         
-                        guard error == nil else {
-                            completion(false)
-                            return
-                        }
+                        strongSelf.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            completion(true)
+                            
+                        })
                         
-                        completion(true)
-                        
-                    })
-                }
-            })
-            completion(true)
+                    } else {
+                        let newCollection:  [[String: String]] = [
+                            [
+                                "name": user.firstName + " " + user.lastName,
+                                "email": user.cleanEmail
+                            ]
+                        ]
+                        strongSelf.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                            
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            
+                            completion(true)
+                            
+                        })
+                    }
+                })
+                completion(true)
         })
     }
     
