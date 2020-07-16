@@ -31,14 +31,8 @@ class DiscussionsViewController: UIViewController {
     private var conversations = [Conversation]()
     private var loginObserver : NSObjectProtocol?
     
-    private let tableView : UITableView = {
-       let table = UITableView()
-        table.isHidden = true
-        table.register(DiscussionTableViewCell.self,
-                       forCellReuseIdentifier: DiscussionTableViewCell.identifier)
-        return table
-        
-    }()
+    @IBOutlet weak var tableView: UITableView!
+
     
     private let noConversationsLabel : UILabel = {
         let label = UILabel()
@@ -54,7 +48,6 @@ class DiscussionsViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
-        view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
         setupTableView()
         startListeningforConversations()
@@ -71,7 +64,6 @@ class DiscussionsViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
         noConversationsLabel.frame = CGRect(x: 10,
                                             y: (view.height-100)/2,
                                             width: view.width-20,
@@ -173,8 +165,11 @@ class DiscussionsViewController: UIViewController {
     }
     
     func setupTableView() {
+        tableView.register(DiscussionTableViewCell.self,
+                       forCellReuseIdentifier: DiscussionTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
