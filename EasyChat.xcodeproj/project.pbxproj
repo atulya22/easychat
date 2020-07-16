@@ -22,6 +22,9 @@
 		ACA2896F24A56D5E007211F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACA2896D24A56D5E007211F6 /* Main.storyboard */; };
 		ACA2897124A56D5F007211F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACA2897024A56D5F007211F6 /* Assets.xcassets */; };
 		ACA2897424A56D5F007211F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACA2897224A56D5F007211F6 /* LaunchScreen.storyboard */; };
+		ACC2DE6324BC06BB00EEFF10 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC2DE6224BC06BB00EEFF10 /* WelcomeScreenViewController.swift */; };
+		ACC2DE6624BCB7BA00EEFF10 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC2DE6524BCB7BA00EEFF10 /* SignInViewController.swift */; };
+		ACCA2A1A24BCC5EA00CD5E85 /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCA2A1924BCC5EA00CD5E85 /* CircularView.swift */; };
 		ACCE6CBC24AD009F00193ACE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACCE6CBB24AD009F00193ACE /* GoogleService-Info.plist */; };
 		ACF39CF224AD133C0056B0D5 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF124AD133C0056B0D5 /* Loadable.swift */; };
 		ACF39CF424AD3C2D0056B0D5 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF39CF324AD3C2D0056B0D5 /* DatabaseManager.swift */; };
@@ -50,6 +53,9 @@
 		ACA2897024A56D5F007211F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACA2897324A56D5F007211F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACA2897524A56D5F007211F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACC2DE6224BC06BB00EEFF10 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
+		ACC2DE6524BCB7BA00EEFF10 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		ACCA2A1924BCC5EA00CD5E85 /* CircularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
 		ACCE6CBB24AD009F00193ACE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACF39CF124AD133C0056B0D5 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		ACF39CF324AD3C2D0056B0D5 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -98,6 +104,7 @@
 				ACA2897024A56D5F007211F6 /* Assets.xcassets */,
 				ACF39CF924B407960056B0D5 /* DiscussionTableViewCell.swift */,
 				ACF39CFB24B607A00056B0D5 /* NewConversationCell.swift */,
+				ACCA2A1924BCC5EA00CD5E85 /* CircularView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -157,6 +164,8 @@
 			children = (
 				AC8F22B524A581B400F8C617 /* LoginViewController.swift */,
 				AC8F22B724A581C300F8C617 /* RegisterViewController.swift */,
+				ACC2DE6224BC06BB00EEFF10 /* WelcomeScreenViewController.swift */,
+				ACC2DE6524BCB7BA00EEFF10 /* SignInViewController.swift */,
 			);
 			path = Accounts;
 			sourceTree = "<group>";
@@ -353,11 +362,14 @@
 				AC8F22B824A581C300F8C617 /* RegisterViewController.swift in Sources */,
 				AC8F22BC24A582C600F8C617 /* VideoPlayerViewController.swift in Sources */,
 				ACF39CF224AD133C0056B0D5 /* Loadable.swift in Sources */,
+				ACC2DE6624BCB7BA00EEFF10 /* SignInViewController.swift in Sources */,
 				ACA2896C24A56D5E007211F6 /* DiscussionsViewController.swift in Sources */,
+				ACC2DE6324BC06BB00EEFF10 /* WelcomeScreenViewController.swift in Sources */,
 				ACA2896824A56D5E007211F6 /* AppDelegate.swift in Sources */,
 				AC8F22C024A5834100F8C617 /* ProfileViewController.swift in Sources */,
 				ACF39CF624B24F0D0056B0D5 /* ChatViewController.swift in Sources */,
 				ACA2896A24A56D5E007211F6 /* SceneDelegate.swift in Sources */,
+				ACCA2A1A24BCC5EA00CD5E85 /* CircularView.swift in Sources */,
 				ACF39CF824B3639E0056B0D5 /* StorageManager.swift in Sources */,
 				AC90DFA024A6981300613A72 /* Extensions.swift in Sources */,
 				AC8F22BE24A5832300F8C617 /* StartDiscussionViewController.swift in Sources */,

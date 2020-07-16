@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         FirebaseApp.configure()
         
         
+        
         ApplicationDelegate.shared.application(application,
                                                didFinishLaunchingWithOptions: launchOptions)
         
@@ -138,4 +139,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
 }
-

@@ -59,7 +59,7 @@ class ProfileViewController: UIViewController {
                                                     UserDefaults.standard.set(nil, forKey: "email")
                                                         UserDefaults.standard.set(nil, forKey: "name")
                                                     
-                                                    print(UserDefaults.standard.value(forKey: "email"))
+
                                                     GIDSignIn.sharedInstance()?.signOut()
                                                     FBSDKLoginKit.LoginManager().logOut()
                                                     

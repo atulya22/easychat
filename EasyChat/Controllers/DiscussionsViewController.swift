@@ -190,10 +190,11 @@ class DiscussionsViewController: UIViewController {
     private func validateAuth() {
         
         if (FirebaseAuth.Auth.auth().currentUser == nil) {
-            let vc = LoginViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: false)
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            print(sb)
+            let vc = sb.instantiateViewController(withIdentifier: "WelcomeScreenViewController")
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false)
         }
     }
 }
